@@ -55,4 +55,4 @@ jobs:
           file: ./Dockerfile
           platforms: linux/amd64
           push: true
-          tags: cloud_native/techtrends:latest
+          tags: jarich/techtrends:latest
