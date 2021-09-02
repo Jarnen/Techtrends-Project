@@ -5,11 +5,18 @@ name: TechTrends - Package with Docker
 ## The trigger policy.
 ## In this case, the workflow is execute on a `push` event,
 ## or when a new commit is pushed to the main branch
-on: [push]
+## Controls when the action will run. Triggers the workflow on push or pull request
+## events but only for the main branch
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+    
 ## Steps to be executed by the workflow
 jobs:
   ## The name of the job
-  check-python-version:
+  build:
     ## Configure the operating system the workflow should run on.
     ## In this case, the job on Ubuntu
     runs-on: ubuntu-latest
@@ -17,9 +24,35 @@ jobs:
     steps:
       ## Use the public `checkout` action in version v2  
       ## to checkout the existing code in the repository
-      - uses: actions/checkout@v2
-      ## Use the public `setup-python` action  in version v2  
-      ## to install python on the  Ubuntu based environment 
-      - uses: actions/setup-python@v2
-      ## Executes the `python --version` command
-      - run: python --version
+      - 
+        name: Checkout
+        uses: actions/checkout@v2
+      
+      ## Set up QEMU
+      - 
+        name: Set up QEMU
+        uses: docker/setup-qemu-action@v1
+      
+      ## Set up Docker Buildx
+      - 
+        name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+      
+      ## Login to DockerHub
+      -
+        name: Login to DockerHub
+        uses: docker/login-action@v1 
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      
+      ## Build and push
+      -
+        name: Build and push
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          file: ./Dockerfile
+          platforms: linux/amd64
+          push: true
+          tags: {{ DOCKERHUB_REPO }}/techtrends:latest
