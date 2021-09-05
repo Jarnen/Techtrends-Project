@@ -15,3 +15,5 @@ resources:
     memory: 256Mi
     CPU: 500m
 
+configmap:
+  data: "version: 1.17.0"

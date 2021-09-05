@@ -28,3 +28,5 @@ livenessProbe:
 readynessProbe:
   path: /healthz
 
+configmap:
+  data: "version: techtrends"
