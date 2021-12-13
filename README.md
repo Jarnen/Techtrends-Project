@@ -1,8 +1,9 @@
 ## Project Description
-This project is part of the Udacity's Suse Cloud Native Architecture Nanodegree sertificate course. The starter files can be cloned from [here](https://github.com/udacity/nd064_course_1/tree/main/project)
+This project is part of the Udacity's Suse Cloud Native Architecture Nanodegree certificate course. The starter files can be cloned from [here](https://github.com/udacity/nd064_course_1/tree/main/project)
 
 ## Project Objectives
-The objective of this project is to use best development practices and develop the status and health check endpoints for the TechTrends application. 
+The objective of this project is to use best development practices and develop the status and health check endpoints for the TechTrends application. Below sub-sections 
+described the implementations of these.
 
 ### Dockefile and Docker image 
 Dockerfile and Docker image is used to package the application.
